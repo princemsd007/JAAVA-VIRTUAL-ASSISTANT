@@ -1,0 +1,61 @@
+import pyttsx3 as p 
+import speech_recognition as sr
+from selenium import webdriver
+from datetime import datetime
+import subprocess
+
+now = datetime.now()
+
+current_time = now.strftime("%H:%M:%S")
+
+engine = p.init()
+
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 175)
+voice = engine.getProperty('voices')
+engine.setProperty('voice', voice[1])
+
+
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+r = sr.Recognizer()
+speak("Hello there, I am your personal voice assistant. How are you?")
+
+with sr.Microphone() as source: 
+
+    r.energy_threshold=10000
+    r.adjust_for_ambient_noise(source, 1.2)
+    print("listening...")
+    audio = r.listen(source)
+    text = r.recognize_google(audio)
+    print(text)
+if "what" or "how" and "about" and "you" in text:
+     speak("Just computing a few bits")
+speak("how can i help you")
+
+with sr.Microphone() as source: 
+
+    r.energy_threshold=10000
+    r.adjust_for_ambient_noise(source, 1.2)
+    print("listening...")
+    audio = r.listen(source)
+    text = r.recognize_google(audio)
+    print(text)
+    if "open" or "Open" and "google" or "Google" in text:
+        speak("Opening google")
+        class infow():
+            def _init_(self):
+                 self.driver = webdriver.Chrome(executable_path='D:\chromedriver.exe')
+    elif "show" or "Show" or "current" or "Current" or "time" or "Time" in text:
+          print("Current Time =", current_time)
+          speak("the current time is:")
+          speak(current_time)
+    elif "what" or "What" and "is" and "Date" or "date" and "Today" or "today" in text:
+          print(current_date)
+          speak("It is")
+          speak(current_date)
+    elif "open" or "Open" and "calculator" or "Calculator" in text:
+         subprocess.Popen('C:\\Windows\\System32\\calc.exe')
